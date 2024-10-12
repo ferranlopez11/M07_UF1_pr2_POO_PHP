@@ -1,4 +1,4 @@
-## About ComBank back account
+## About ComBank application
 > Using this small program to explain about the OOP and PHPUnit.
 
 > To run the program, please read the follow:
@@ -16,11 +16,6 @@
 #### Installation
 ```
 $ composer install
-```
-
-#### Unit Test
-```
-$ phpunit
 ```
 
 #### Run Unit Test
