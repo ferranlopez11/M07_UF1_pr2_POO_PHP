@@ -9,6 +9,7 @@ use ComBank\Transactions\Contracts\BankTransactionInterface;
 use ComBank\Exceptions\BankAccountException;
 use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Exceptions\ZeroAmountException;
+use ComBank\Bank\InternationalBankAccout;
 
 require_once 'bootstrap.php';
 
@@ -17,6 +18,18 @@ require_once 'bootstrap.php';
 // create a new account1 with balance 400
 pl('--------- [Start testing bank account #1, No overdraft] --------');
 try {
+
+    echo "-------- [Testing National Account (No conversion)] --------\n";
+    $nationalAccount = new BankAccount(500, 'EUR');
+    echo "My balance: " . $nationalAccount->getBalance() . " € (Euro)\n";
+
+    echo "-------- [Testing International Account (Dollar conversion)] --------\n";
+    $internationalAccount = new InternationalBankAccount(300, 'EUR');
+    echo "My balance: " . $internationalAccount->getBalance() . " € (Euro)\n";
+    $convertedBalance = $internationalAccount->getConvertedBalance('USD');
+    echo "Converting balance to Dollars (Rate: 1 USD = 1.10 €)\n";
+    echo "Converted balance: " . $convertedBalance . " $ (USD)\n";
+
     $bankAccount1 = new BankAccount(400.0);
     $bankAccount1->applyOverdraft(new SilverOverdraft());
     // show balance account

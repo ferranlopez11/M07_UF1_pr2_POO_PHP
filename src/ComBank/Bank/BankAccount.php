@@ -14,16 +14,33 @@ use ComBank\Transactions\Contracts\BankTransactionInterface;
 
 class BankAccount implements BankAccountInterface
 {
-    private $balance;
-    private $status;
-    private $overdraft;
+    protected float $balance;
+    protected $status;
+    protected $overdraft;
 
-    public function __construct(float $initialBalance = 0.0)
+    
+    protected string $currency;
+
+    public function __construct(float $balance, string $currency = 'EUR') {
+        $this->balance = $balance;
+        $this->currency = $currency;
+    }
+
+    public function getBalance(): float {
+        return $this->balance;
+    }
+
+    public function getCurrency(): string {
+        return $this->currency;
+    }
+
+
+/*    public function __construct(float $initialBalance = 0.0)
     {
         $this->balance = $initialBalance;
         $this->status = self::STATUS_OPEN;
         $this->overdraft = new NoOverdraft();
-    }
+    }*/
 
     public function isOpen(): bool
     {
@@ -48,10 +65,6 @@ class BankAccount implements BankAccountInterface
         echo "<br>My account is now closed.<br>";
     }
 
-    public function getBalance(): float
-    {
-        return $this->balance;
-    }
 
     public function setBalance(float $balance): void
     {
